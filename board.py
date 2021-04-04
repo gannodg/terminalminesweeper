@@ -17,6 +17,8 @@ class Board:
     bombs_marked = 0
     # Bombs guessed
     bombs_guessed = 0
+    # Total bombs
+    bombs_total = 0
 
     def __init__(self, gridSize):
         super().__init__()
@@ -37,6 +39,7 @@ class Board:
                     self.bombs_left = self.bombs_left + 1
                     self.bombs_marked = self.bombs_marked + 1
         self.neighbors()
+        self.bombs_total = self.bombs_left
 
     def neighbors(self):
         # compute the neighborhood values for each location
@@ -66,7 +69,7 @@ class Board:
 
     def mark_bomb(self, x, y):
         result = True
-        if (self.R[x][y] and self.M[x][y] == 0):
+        if (self.R[x][y] and self.M[x][y] < 9 and not self.G[x][y]):
             return False
         if not self.G[x][y]:
             self.G[x][y] = True
