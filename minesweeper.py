@@ -85,9 +85,9 @@ def user_move(stdscr, key_press, b):
         stdscr.move(pos[0], pos[1])
     elif key_press == "b":
         result = True
-        stdscr.addstr(pos[0], pos[1], "b", curses.A_REVERSE)
         x = int(pos[1]/2)
         if b.mark_bomb(x, pos[0]):
+            stdscr.addstr(pos[0], pos[1], "b", curses.A_REVERSE)
             stdscr.addstr(b.size + 1, 0, "Bombs left: " + str(b.bombs_marked))
             if b.bombs_left == 0:
                 display_board(stdscr, b)
@@ -96,7 +96,8 @@ def user_move(stdscr, key_press, b):
             stdscr.move(pos[0], pos[1])
         else:
             stdscr.addstr(b.size + 1, 0, "Bombs left: " + str(b.bombs_marked))
-            stdscr.addstr(pos[0], pos[1], ".")
+            if not b.R[x][pos[0]]:
+                stdscr.addstr(pos[0], pos[1], ".")
             stdscr.move(pos[0], pos[1])
     else:
         result = False

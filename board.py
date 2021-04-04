@@ -66,6 +66,8 @@ class Board:
 
     def mark_bomb(self, x, y):
         result = True
+        if (self.R[x][y] and self.M[x][y] == 0):
+            return False
         if not self.G[x][y]:
             self.G[x][y] = True
             self.R[x][y] = True
