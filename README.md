@@ -13,8 +13,8 @@ Created as part of the Spring 2021 TNTech Gamedev Game Jam
 Jerry Gannod
 
 ### Usage
-```text
-% python3 minesweeper.py
+```bash
+python3 minesweeper.py
 ```
 
 ### Files

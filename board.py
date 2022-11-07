@@ -1,27 +1,27 @@
 import numpy as nm
 import random as random
 
-class Board:
 
-    # M is the minefield
-    M = []
-    # R is the revealed minefield
-    R = []
-    # G is the guessed minefield
-    G = []
-    # Size of the minefield
-    size = 0
-    # Bomb squad count
-    bombs_left = 0
-    # Bombs marked
-    bombs_marked = 0
-    # Bombs guessed
-    bombs_guessed = 0
-    # Total bombs
-    bombs_total = 0
+class Board(object):
 
     def __init__(self, gridSize):
         super().__init__()
+        # M is the minefield
+        self.M = []
+        # R is the revealed minefield
+        self.R = []
+        # G is the guessed minefield
+        self.G = []
+        # Size of the minefield
+        self.size = 0
+        # Bomb squad count
+        self.bombs_left = 0
+        # Bombs marked
+        self.bombs_marked = 0
+        # Bombs guessed
+        self.bombs_guessed = 0
+        # Total bombs
+        self.bombs_total = 0
         self.size = gridSize
         numBombs = nm.math.floor(self.size * 0.15)
         self.M = [[0 for x in range(self.size)] for y in range(self.size)]
@@ -34,7 +34,7 @@ class Board:
                 self.R[i][j] = False
                 self.G[i][j] = False
                 # 15% bombs
-                if (rval <= 0.15):
+                if rval <= 0.15:
                     self.M[i][j] = 9
                     self.bombs_left = self.bombs_left + 1
                     self.bombs_marked = self.bombs_marked + 1
@@ -55,7 +55,7 @@ class Board:
         result = True
         if (x < 0 or x == self.size) or (y < 0 or y == self.size):
             return True
-        if self.R[x][y] == False:
+        if not self.R[x][y]:
             self.R[x][y] = True
             if self.M[x][y] == 0:
                 # Iterate through the neighborhood and 
@@ -69,7 +69,7 @@ class Board:
 
     def mark_bomb(self, x, y):
         result = True
-        if (self.R[x][y] and self.M[x][y] < 9 and not self.G[x][y]):
+        if self.R[x][y] and self.M[x][y] < 9 and not self.G[x][y]:
             return False
         if not self.G[x][y]:
             self.G[x][y] = True
